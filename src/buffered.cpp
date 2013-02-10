@@ -9,6 +9,9 @@
 #include "viewport.h"
 #include "camera.h"
 #include "emitter.h"
+#include "cube.h"
+
+#include <bmp_loader.h>
 
 Buffered::Buffered()
 {
@@ -17,6 +20,8 @@ Buffered::Buffered()
 Buffered::~Buffered()
 {
 }
+
+static int rec = 3;
 
 bool Buffered::Initialize( Renderer* renderer )
 {
@@ -27,6 +32,7 @@ bool Buffered::Initialize( Renderer* renderer )
     ASSERT( r, "Cannot allocate offscreen buffer!");
     m_Texture = m_FrameBuffer.GetTexture();
 
+#if 0
     // Add a cube
     Viewport *viewport(new Viewport(width, height));
     viewport->SetClearColor( {1.0f, 1.0f, 1.0f } );
@@ -35,6 +41,51 @@ bool Buffered::Initialize( Renderer* renderer )
     EntityPtr particleEmitter( new Emitter(renderer) );
     particleEmitter->GetRenderState()->Translate( Vector(0.0, 0.0, -60), Vector(1.0f, 1.0f, 1.0f) );
     viewport->AddEntity( particleEmitter );
+#endif
+    boost::shared_ptr<BmpBrush> bmpBrush( new BmpBrush );
+    ASSERT( bmpBrush->Load( "data/Floor_D.bmp"), "BMP Load error!" );
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Compose our scene
+
+    // Add a cube
+    EntityPtr viewport(new Viewport(width, height));
+    // this entity renders
+    AddEntity(viewport);
+
+    // Add the camera
+    EntityPtr camera(new Camera(NULL));
+    // this entity renders
+    viewport->AddEntity(camera, 0);
+
+    EntityPtr cube( new Cube() );
+    cube->GetRenderState()->Translate( Vector(-8.0, 0, 10), Vector(2.0f, 2.0f, 2.0f) );
+    cube->GetRenderState()->Rotate( Vector(0.0f, 0.0f, 0.0f ) );
+    // this entity renders
+    camera->AddEntity(cube, 20 );
+
+    EntityPtr cube2( new Cube( bmpBrush ) );
+    cube2->GetRenderState()->Translate( Vector(+8.0, 0, 10), Vector(2.0f, 2.0f, 2.0f) );
+    cube2->GetRenderState()->Rotate( Vector(0.0f, 0.0f, 0.0f ) );
+    // this entity renders
+    camera->AddEntity(cube2, 20 );
+
+    if ( --rec > 0 ) {
+        // this creates a recursion
+        EntityPtr buffered( new Cube );
+        buffered->GetRenderState()->Translate( Vector(0.0, 0.0, 15.0), Vector(3.0f, 3.0f, 3.0f) );
+        // this entity renders
+        camera->AddEntity(buffered, 30 );
+
+    }
+
+#define PARTICLES
+#ifdef PARTICLES
+    EntityPtr particleEmitter( new Emitter( renderer ) );
+    particleEmitter->GetRenderState()->Translate( Vector(0.0, 0.0, -30.0), Vector(1.0f, 1.0f, 1.0f) );
+    // this entity renders
+    camera->AddEntity(particleEmitter, 100 );
+#endif
 
     // Subtree will be initialized here:
     return Cube::Initialize( renderer );

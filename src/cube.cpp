@@ -145,23 +145,18 @@ bool Cube::DoInitialize( Renderer* renderer )
     m_HasVBO  = glewGetExtension("GL_ARB_vertex_buffer_object");
     ASSERT( m_HasVBO, "VBOs not supported!" );
     if ( m_HasVBO ) {
-        // create vertex buffer objects, you need to delete them when program exits
-        // Try to put both vertex coords array, vertex normal array and vertex color in the same buffer object.
-        // glBufferDataARB with NULL pointer reserves only memory space.
-        // Copy actual data with 2 calls of glBufferSubDataARB, one for vertex coords and one for normals.
-        // target flag is GL_ARRAY_BUFFER_ARB, and usage flag is GL_STATIC_DRAW_ARB
         glGenBuffers(1, &m_VboID);
         glBindBuffer(GL_ARRAY_BUFFER, m_VboID);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(normals)+sizeof(colors)+sizeof(texCoords), 0, GL_STATIC_DRAW_ARB);
         std::size_t offset(0);
-        glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(vertices), vertices);                             // copy vertices starting from 0 offest
+        glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(vertices), vertices);
         offset += sizeof(vertices);
-        glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(normals), normals);                // copy normals after vertices
+        glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(normals), normals);
         offset += sizeof(normals);
-        glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(colors), colors);  // copy colors after normals
+        glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(colors), colors);
         if ( m_Texture ) {
             offset += sizeof(texCoords);
-            glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(texCoords), texCoords);  // copy colors after normals
+            glBufferSubData(GL_ARRAY_BUFFER, offset, sizeof(texCoords), texCoords);
         }
     }
     m_IsInitialized = true;
