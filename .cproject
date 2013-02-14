@@ -33,10 +33,9 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.1469657163" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -std=c++0x -mwindows" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.40378276" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:\MinGW\msys\1.0\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/data}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\MinGW\msys\1.0\include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\MinGW\include\boost-1_52&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1531107320" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
@@ -52,10 +51,10 @@
 							<tool command="g++ -mwindows" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS} `sdl-config --static-libs`" id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1423976339" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 								<option id="gnu.cpp.link.option.flags.1009226075" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-std=c++0x" valueType="string"/>
 								<option id="gnu.cpp.link.option.libs.670334896" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="boost_system-mgw46-mt-1_52"/>
-									<listOptionValue builtIn="false" value="boost_filesystem-mgw46-mt-1_52"/>
-									<listOptionValue builtIn="false" value="boost_iostreams-mgw46-mt-1_52"/>
-									<listOptionValue builtIn="false" value="boost_thread-mgw46-mt-1_52"/>
+									<listOptionValue builtIn="false" value="boost_filesystem-mgw46-mt-s-1_52"/>
+									<listOptionValue builtIn="false" value="boost_iostreams-mgw46-mt-s-1_52"/>
+									<listOptionValue builtIn="false" value="boost_system-mgw46-mt-s-1_52"/>
+									<listOptionValue builtIn="false" value="boost_thread-mgw46-mt-s-1_52"/>
 									<listOptionValue builtIn="false" value="glu32"/>
 									<listOptionValue builtIn="false" value="glew32"/>
 									<listOptionValue builtIn="false" value="opengl32"/>
@@ -98,4 +97,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.msw.build.clScannerInfo"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>
