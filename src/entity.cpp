@@ -18,7 +18,7 @@ Entity::Entity() throw ()
 {
 }
 
-void Entity::Destroy()
+void Entity::CheckDestroy()
 {
     delete this;
 }

@@ -51,7 +51,7 @@ public:
 
 	virtual ~Entity() {}
 
-    void Destroy();
+    void CheckDestroy();
 
 	virtual bool HandleEvent( const SDL_Event& event )  { return false; }
 

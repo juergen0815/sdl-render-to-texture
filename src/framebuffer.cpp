@@ -66,9 +66,7 @@ bool FrameBuffer::Allocate( int width, int height, int type /* = GL_RGBA */ )
     }
     // Set "renderedTexture" as our colour attachement #0
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_Texture->GetTextureId(), 0);
-    // Set the list of draw buffers.
-    GLenum DrawBuffers[2] = { GL_COLOR_ATTACHMENT0 };
-    glDrawBuffers(1, DrawBuffers); // "1" is the size of DrawBuffers
+    glDrawBuffer( GL_COLOR_ATTACHMENT0 );
 
     r &= ( glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE );
     return r;
