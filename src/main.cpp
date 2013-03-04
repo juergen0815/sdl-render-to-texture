@@ -5,15 +5,23 @@
 #include <exception>
 #include <iostream>
 
+#ifdef __linux__
+#include <gtk/gtk.h>
+#endif
+
 static void HandleUnexpected()
 {
     ShowError( "Application failed with unexpected Exception!", "Unexpected Exception" );
 }
 
-extern "C" int SDL_main( int argc, char* argv[] )
+//extern "C" int SDL_main( int argc, char* argv[] )
+int main( int argc, char* argv[] )
 {
     std::set_unexpected( HandleUnexpected );
 	try {
+#ifdef __linux__
+		gtk_init(&argc,&argv);
+#endif
 		App app;
 		app.Init( argc, argv );
 		return app.Run();

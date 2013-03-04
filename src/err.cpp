@@ -5,7 +5,12 @@
  *      Author: jurgens
  */
 
+#ifdef _WIN32
 #include <windows.h>
+#endif
+#ifdef __linux__
+#include <gtk/gtk.h>
+#endif
 
 #include <GL/glew.h>
 
@@ -17,6 +22,7 @@
 
 void ShowWindowsError( const char* msg, unsigned long err, const char* header /*= "Error!"*/ )
 {
+#ifdef _WIN32
     const UINT bufSize(2048);
     LPSTR lpBuffer = (LPSTR)LocalAlloc( 0, bufSize + 1);
     if ( lpBuffer ) {
@@ -36,11 +42,36 @@ void ShowWindowsError( const char* msg, unsigned long err, const char* header /*
         }
         LocalFree( lpBuffer );
     }
+#endif
+#ifdef __linux__
+    GtkWidget *dialog = gtk_message_dialog_new(
+    								nullptr,
+    								GTK_DIALOG_MODAL,
+                                    GTK_MESSAGE_ERROR,
+                                    GTK_BUTTONS_OK,
+                                    "Error '%ld': %s",
+                                    err, g_strerror (err));
+    gtk_dialog_run( GTK_DIALOG(dialog) );
+    gtk_widget_destroy (dialog);
+#endif
 }
 
 void ShowError( const char* msg, const char* header /*= "Error!"*/ )
 {
+#ifdef _WIN32
 	MessageBoxA(HWND_DESKTOP, msg, header, MB_OK);
+#endif
+#ifdef __linux__
+    GtkWidget *dialog = gtk_message_dialog_new(
+    								nullptr,
+    								GTK_DIALOG_MODAL,
+                                    GTK_MESSAGE_ERROR,
+                                    GTK_BUTTONS_OK,
+                                    "%s\n%s",
+                                    header, msg);
+    gtk_dialog_run( GTK_DIALOG(dialog) );
+    gtk_widget_destroy (dialog);
+#endif
 }
 
 const char* glErrMessage( int code )
