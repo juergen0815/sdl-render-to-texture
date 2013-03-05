@@ -14,8 +14,11 @@ static void HandleUnexpected()
     ShowError( "Application failed with unexpected Exception!", "Unexpected Exception" );
 }
 
-//extern "C" int SDL_main( int argc, char* argv[] )
+#ifdef __linux__
 int main( int argc, char* argv[] )
+#else
+extern "C" int SDL_main( int argc, char* argv[] )
+#endif
 {
     std::set_unexpected( HandleUnexpected );
 	try {
