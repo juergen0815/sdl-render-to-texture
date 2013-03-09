@@ -12,14 +12,16 @@
 #include <SDL/SDL.h>
 
 #include <boost/bind.hpp>
-//#include <map>
-
-#include <GL/glew.h>
 
 Renderer::Renderer()
 	: m_Terminate(false)
+#ifdef _WIN32
     , m_CurrentContext( nullptr )
     , m_CurrentDC( nullptr )
+#endif
+#ifdef __linux__
+	, m_CurrentContext( nullptr )
+#endif
     , m_TimeBase(1.0f)
     , m_Pause(1)
 {
@@ -31,11 +33,29 @@ Renderer::~Renderer()
 
 void Renderer::Init()
 {
+#ifdef _WIN32
     m_CurrentContext = wglGetCurrentContext();
     m_CurrentDC      = wglGetCurrentDC();
-
     // release current context
-    wglMakeCurrent( NULL, NULL );
+    wglMakeCurrent( nullptr, nullptr );
+#endif
+#ifdef __linux__
+    // Rendering works fine under X in a separate thread, but quitting breaks some SDL internals. Haven't figured it out yet.
+    if (!XInitThreads())
+    {
+    	THROW( "XLib is not thread safe." );
+    }
+    SDL_SysWMinfo wm_info;
+    SDL_VERSION( &wm_info.version );
+    if ( SDL_GetWMInfo( &wm_info ) ) {
+        // TODO: drag-n-drop for non win32
+        Display *display = wm_info.info.x11.gfxdisplay;
+        m_CurrentContext = glXGetCurrentContext();
+        ASSERT( m_CurrentContext, "Error! No current GL context!" );
+        glXMakeCurrent( display, None, nullptr );
+        XSync( display, false );
+    }
+#endif
 }
 
 void Renderer::AddEntity( EntityPtr entity, int priority /*= 0*/  )
@@ -140,11 +160,23 @@ void Renderer::InitGL()
 {
     // This is important! Our renderer runs its own render thread
     // All
+#ifdef _WIN32
     wglMakeCurrent(m_CurrentDC,m_CurrentContext);
-
+#endif
+#ifdef __linux__
+    SDL_SysWMinfo wm_info;
+    SDL_VERSION( &wm_info.version );
+    if ( SDL_GetWMInfo( &wm_info ) ) {
+        // TODO: drag-n-drop for non win32
+        Display *display = wm_info.info.x11.gfxdisplay;
+        Window   window  = wm_info.info.x11.window;
+        glXMakeCurrent( display, window, m_CurrentContext );
+        XSync( display, false );
+    }
+#endif
     // Init GLEW - we need this to use OGL extensions (e.g. for VBOs)
     GLenum err = glewInit();
-    ASSERT( GLEW_OK == err, "Error: %s\n", glewGetErrorString(err) );
+    ASSERT( GLEW_OK == err, "Glew Error: %s\n", glewGetErrorString(err) );
 
     glShadeModel(GL_SMOOTH);                    // shading mathod: GL_SMOOTH or GL_FLAT
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);      // 4-byte pixel alignment
