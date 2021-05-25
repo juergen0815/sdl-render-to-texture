@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include <cstdio>
 #include <boost/assert.hpp>
+#include <boost/current_function.hpp>
 
 const char* glErrMessage( int code );
 

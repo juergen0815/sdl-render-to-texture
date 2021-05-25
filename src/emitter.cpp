@@ -80,7 +80,7 @@ bool Emitter::DoInitialize( Renderer* renderer )
 {
     m_Texture->Allocate( sParticleTexture.m_Width, sParticleTexture.m_Height, GL_RGBA );
     BmpBrush brush;
-    if (!brush.Load( "data/particle.bmp" )) {
+    if (!brush.Load( "../../data/particle.bmp" )) {
         m_Texture->Load( sParticleTexture.m_Pixels, sParticleTexture.m_Width, sParticleTexture.m_Height, GL_RGBA );
     } else {
         m_Texture->Load( brush );

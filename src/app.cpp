@@ -15,7 +15,7 @@
 #include "buffered.h"
 #include "emitter.h"
 
-#include <bmp_loader.h>
+#include "bmp_loader.h"
 
 #include <SDL/SDL.h>
 
@@ -135,7 +135,7 @@ void App::InitScene( int width, int height )
     renderer->Init();
 
     boost::shared_ptr<BmpBrush> bmpBrush( new BmpBrush );
-    ASSERT( bmpBrush->Load( "data/Floor_D.bmp"), "BMP Load error!" );
+    ASSERT( bmpBrush->Load( "../../data/Floor_D.bmp"), "BMP Load error!" );
 
     ////////////////////////////////////////////////////////////////////////////
     // Compose our scene
@@ -187,7 +187,7 @@ void App::InitScene( int width, int height )
 
 }
 
-void App::Init(int argc, char* argv[])
+void App::Init(int argc, const char* argv[])
 {
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_JOYSTICK) < 0)
     {

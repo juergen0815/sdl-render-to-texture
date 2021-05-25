@@ -33,7 +33,7 @@ public:
 
 	~App();
 
-	void Init( int argc, char *argv[] );
+	void Init( int argc, const char *argv[] );
 
 	int Run();
 
