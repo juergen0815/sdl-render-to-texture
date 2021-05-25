@@ -17,7 +17,7 @@ static void HandleUnexpected()
 #ifdef __linux__
 int main( int argc, char* argv[] )
 #else
-extern "C" int SDL_main( int argc, char* argv[] )
+extern "C" int main( int argc, const char* argv[] )
 #endif
 {
     std::set_unexpected( HandleUnexpected );

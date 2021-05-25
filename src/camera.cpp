@@ -144,6 +144,6 @@ void Camera::DoUpdate( float ticks )
     Matrix &m = GetRenderState()->GetMatrix();
     // reset matrix to object world
     m.LoadIdentity();
-    m.Translate( (const float[4]){m_CameraPosition[Vector::X], -m_CameraPosition[Vector::Y], -m_CameraPosition[Vector::Z], 1.0f});
+    m.Translate( (const float*)Vector(m_CameraPosition[Vector::X], -m_CameraPosition[Vector::Y], -m_CameraPosition[Vector::Z], 1.0f) );
     m.Rotate( m_CameraAngle );
 }

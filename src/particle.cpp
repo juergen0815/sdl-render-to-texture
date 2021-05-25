@@ -26,7 +26,7 @@ Particle::Particle( const Vector& color /* = Vector(1.0f, 0.3f,0.5f) */ )
     : m_LifeTime( 1.0f )
     , m_Gravity ( 0.0f, -0.8f, 0.0f )
     , m_Speed( 0.0f, 0.0f, 0.0f )
-    , m_ColorArray({0})
+    , m_ColorArray{0}
     , m_VboID(-1)
 {
     SetColor( color );

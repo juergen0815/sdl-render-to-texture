@@ -26,7 +26,7 @@ private:
     float vec[4];
 
 public:
-    Vector() : vec({0,0,0,1})
+    Vector() : vec {0,0,0,1} 
     {
     }
 

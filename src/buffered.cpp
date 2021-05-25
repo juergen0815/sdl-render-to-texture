@@ -43,7 +43,7 @@ bool Buffered::Initialize( Renderer* renderer )
     viewport->AddEntity( particleEmitter );
 #endif
     boost::shared_ptr<BmpBrush> bmpBrush( new BmpBrush );
-    ASSERT( bmpBrush->Load( "data/Floor_D.bmp"), "BMP Load error!" );
+    ASSERT( bmpBrush->Load( "../../data/Floor_D.bmp"), "BMP Load error!" );
 
     ////////////////////////////////////////////////////////////////////////////
     // Compose our scene
