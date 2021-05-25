@@ -1,5 +1,5 @@
 /************************************************************************/
-/* pei::Engine (�)Copyright 2009-12 J�rgen Schober                      */
+/* pei::EngineToolkit (©)Copyright 2021 Jürgen Schober                  */
 /*                                                                      */
 /* This Software is distributed as Freeware. It may be copied and       */
 /* distributed (even as a companion to a commercial product) as long as */
