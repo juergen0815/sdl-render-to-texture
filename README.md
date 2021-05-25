@@ -33,5 +33,9 @@ Compiler used:
 
 	MinGW with Eclipse 3.7 Indigo (Mac and Linux targets should work, too).
 
+TODO:
+
+	* Move this to CMake and decouple from Eclipse. I use VSC as of late.
+
 Have fun
 Jurgen
