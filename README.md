@@ -30,7 +30,8 @@ Description:
     this demonstrates limited live time of 3D objects with a lot of add/remove in 
     the scene graph.
 
-	This is 100% portable C++ code using boost libraries. Other than windows bootstrappers this code does not contain any OS specific code.
+	This is 100% portable C++ code using boost libraries. Other than windows 
+    bootstrappers this code does not contain any OS specific code.
 
 Libs used:
 
