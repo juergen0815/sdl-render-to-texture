@@ -264,7 +264,7 @@ int App::Run()
         do
         {
             bool processed( renderer->HandleEvent( event ) );
-            for ( auto entity = m_EntityEventHandlerList.begin(); entity != m_EntityEventHandlerList.end(); )
+            for ( auto entity = m_EntityEventHandlerList.begin(); entity != m_EntityEventHandlerList.end(); entity++)
             {
                 processed |= (*entity)->HandleEvent(event);
                 if (processed) {
@@ -275,7 +275,6 @@ int App::Run()
                     entity = m_EntityEventHandlerList.erase( entity );
                     continue;
                 }
-                ++entity;
             }
             if (!processed)
             {

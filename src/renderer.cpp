@@ -273,13 +273,12 @@ void Renderer::Run()
             float ticks = SDL_GetTicks();
 
             // Call all updater callbacks (once per frame)
-            for ( auto doUpdate = m_Updaters.begin(); doUpdate != m_Updaters.end(); ) {
+            for ( auto doUpdate = m_Updaters.begin(); doUpdate != m_Updaters.end(); doUpdate++) {
                 bool remove = doUpdate->second( (timeStamp - ticks)*m_TimeBase*float(m_Pause) );
                 if ( remove ) {
                     doUpdate = m_Updaters.erase( doUpdate );
                     continue;
                 }
-                ++doUpdate;
             }
 
             // No Scene graph, no nested objects, no tree...must unroll in reverse order (see below)

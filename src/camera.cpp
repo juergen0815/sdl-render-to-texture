@@ -129,8 +129,8 @@ bool Camera::HandleEvent(const SDL_Event& event)
             }
             break;
         case SDL_JOYAXISMOTION: {
-            m_JoyStickMotionAxis      = { -GetJoystickAxisValue(JOY_AXIS::X_MOTION),-GetJoystickAxisValue(JOY_AXIS::Z_TRIGGER),GetJoystickAxisValue(JOY_AXIS::Y_MOTION)*m_CameraSpeed  };
-            m_JoystickOrientationAxis = {  GetJoystickAxisValue(JOY_AXIS::X_ROTATION)*1.75f, GetJoystickAxisValue(JOY_AXIS::Y_ROTATION)*1.75f, 0 };
+            // m_JoyStickMotionAxis      = { -GetJoystickAxisValue(JOY_AXIS::X_MOTION),-GetJoystickAxisValue(JOY_AXIS::Z_TRIGGER),GetJoystickAxisValue(JOY_AXIS::Y_MOTION)*m_CameraSpeed  };
+            // m_JoystickOrientationAxis = {  GetJoystickAxisValue(JOY_AXIS::X_ROTATION)*1.75f, GetJoystickAxisValue(JOY_AXIS::Y_ROTATION)*1.75f, 0 };
             } break;
         default: break;
     }
